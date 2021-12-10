@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uf2.anime.anime.domain.dto.ResponseList;
 import uf2.anime.anime.domain.model.Anime;
+import uf2.anime.anime.domain.model.projection.ProjectionAnime;
 import uf2.anime.anime.repository.AnimeRepository;
 
 @RestController
@@ -16,7 +17,11 @@ public class AnimeController {
 
     @GetMapping("/")
     public ResponseEntity<?> findAllAnimes(){
-        return ResponseEntity.ok().body(new ResponseList(animeRepository.findBy()));
+        return ResponseEntity.ok().body(new ResponseList(animeRepository.findBy(ProjectionAnime.class)));
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findBy(){
+        return ResponseEntity.ok().body(new ResponseList(animeRepository.findBy(ProjectionAnime.class)));
     }
 
     @PostMapping("/")

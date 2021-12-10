@@ -8,5 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AuthorRepository extends JpaRepository<Anime, UUID> {
-    List<ProjectionAuthor> findBy();
+    //List<ProjectionAuthor> findBy();
+    <T>List<T> findBy(Class<T> type);
 }

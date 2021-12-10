@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uf2.anime.anime.domain.dto.ResponseList;
+import uf2.anime.anime.domain.model.projection.ProjectionAuthor;
+import uf2.anime.anime.domain.model.projection.ProjectionAuthorMin;
 import uf2.anime.anime.repository.AuthorRepository;
 
 @RestController
@@ -17,6 +19,11 @@ public class AuthorController {
 
     @GetMapping("/")
     public ResponseEntity<?> findAllAutors(){
-        return ResponseEntity.ok().body(new ResponseList(autorRepository.findBy()));
+        return ResponseEntity.ok().body(new ResponseList(autorRepository.findBy(ProjectionAuthor.class)));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findBy(){
+        return ResponseEntity.ok().body(new ResponseList(autorRepository.findBy(ProjectionAuthorMin.class)));
     }
 }
