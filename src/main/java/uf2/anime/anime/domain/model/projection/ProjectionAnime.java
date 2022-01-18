@@ -1,7 +1,7 @@
 package uf2.anime.anime.domain.model.projection;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import uf2.anime.anime.domain.model.Author;
+import uf2.anime.anime.domain.model.Autor;
 import uf2.anime.anime.domain.model.Genre;
 
 import java.util.Set;
@@ -14,8 +14,10 @@ public interface ProjectionAnime {
     String getType();
     int getYear();
     String getImageurl();
+
     @JsonIgnoreProperties("animes")
-    Set<Author> getAutors();
-    @JsonIgnoreProperties("animes")
-    Set<Genre> getGenres();
+    Set<ProjectionAutor> getAuthors();
+
+    //@JsonIgnoreProperties("animes")
+    //Set<ProjectionGenre> getGenres();
 }

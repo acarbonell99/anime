@@ -2,7 +2,11 @@ plugins {
 	id 'org.springframework.boot' version '2.6.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'org.flywaydb.flyway' version '8.0.2'
+	id 'org.flywaydb.flyway' version '8.4.1'
+}
+
+repositories {
+	mavenCentral()
 }
 
 flyway {
@@ -22,9 +26,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.flywaydb:flyway-core:8.0.1'
+	implementation 'org.flywaydb:flyway-core:8.4.1'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.3'
+
 }
+
+
+
 
 test {
 	useJUnitPlatform()

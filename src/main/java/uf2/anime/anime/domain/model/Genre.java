@@ -3,6 +3,7 @@ package uf2.anime.anime.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,5 +18,5 @@ public class Genre {
 
     @ManyToMany(mappedBy = "genres")
     @JsonIgnoreProperties("genres")
-    public Set<Anime> movies;
+    public List<Anime> animes;
 }

@@ -2,24 +2,29 @@ package uf2.anime.anime.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import uf2.anime.anime.domain.dto.ResponseList;
-import uf2.anime.anime.domain.model.Author;
-import uf2.anime.anime.domain.model.projection.ProjectionAuthor;
-import uf2.anime.anime.domain.model.projection.ProjectionAuthorMin;
-import uf2.anime.anime.repository.AuthorRepository;
+import uf2.anime.anime.domain.model.Autor;
+import uf2.anime.anime.domain.model.projection.ProjectionAutor;
+import uf2.anime.anime.repository.AutorRepository;
 
 @RestController
 @RequestMapping("/author")
-public class AuthorController {
+public class AutorController {
 
     @Autowired
-    private AuthorRepository authorRepository;
+    private AutorRepository authorRepository;
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public ResponseEntity<?> findAllAutors(){
         return ResponseEntity.ok().body(new ResponseList(authorRepository.findBy(ProjectionAuthor.class)));
+    }*/
+    @GetMapping("/")
+    public ResponseEntity<?> findAllAuthor(Authentication authentication) {
+        return ResponseEntity.ok().body(new ResponseList(authorRepository.findBy(ProjectionAutor.class)));
     }
+
 
     /*@GetMapping("/{id}")
     public ResponseEntity<?> findBy(){
@@ -31,7 +36,7 @@ public class AuthorController {
         return authorRepository.save(author);
     }*/
     @PostMapping("/")
-    public Author createAuthor(@RequestBody Author author){
+    public Autor createAuthor(@RequestBody Autor author){
         return authorRepository.save(author);
     }
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "author")
-public class Author {
+public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -21,5 +21,7 @@ public class Author {
     @JsonIgnoreProperties("authors")
     public Set<Anime> animes;
     //@JoinTable(name = "anime_autor", joinColumns = @JoinColumn(name = "animeId"), @JoinColumn(name="authorId"))
+
+
 
 }

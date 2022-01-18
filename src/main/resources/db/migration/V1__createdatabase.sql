@@ -5,22 +5,22 @@ CREATE TABLE IF NOT EXISTS anime (
 	description text,
 	type text,
 	year integer,
-	imegeurl text);
+	imageurl text);
 
-CREATE TABLE IF NOT EXISTS autor (
-    autorid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+CREATE TABLE  author (
+    authorid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     name text,
     imageurl text);
 
-CREATE TABLE IF NOT EXISTS genre (
+CREATE TABLE genre (
     genreid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     label text,
     imageurl text);
 
 CREATE TABLE anime_autor (
     animeid uuid REFERENCES anime(animeid) ON DELETE CASCADE,
-    autorid uuid REFERENCES autor(autorid) ON DELETE CASCADE,
-    PRIMARY KEY (animeid, autorid));
+    authorid uuid REFERENCES author(authorid) ON DELETE CASCADE,
+    PRIMARY KEY (animeid, authorid));
 
 CREATE TABLE genre_anime (
     animeid uuid REFERENCES anime(animeid) ON DELETE CASCADE,

@@ -1,5 +1,9 @@
 package uf2.anime.anime.domain.model.projection;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import uf2.anime.anime.domain.model.Anime;
+
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -8,5 +12,9 @@ public interface ProjectionGenre {
     String getLabel();
     String getImageurl();
 
-    Set<ProjectionAnimeWithAuthor> getAnimes();
+    //@JsonIgnoreProperties("genres")
+    Set<Anime> getAnimes();
 }
+
+
+// SELECT * genreid, label, imageurl from genre

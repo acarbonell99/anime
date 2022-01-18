@@ -9,5 +9,5 @@ public interface ProjectionAnimeWithAuthor {
     String getType();
     String getImageurl();
 
-    Set<ProjectionIdAuthor> getAuthors();
+    //Set<ProjectionIdAuthor> getAuthors();
 }

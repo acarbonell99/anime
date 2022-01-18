@@ -3,6 +3,7 @@ package uf2.anime.anime.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,17 +22,17 @@ public class Anime {
     public String imageurl;
 
     @ManyToMany
-    @JoinTable(name = "anime_author", joinColumns = @JoinColumn(name = "animeId"), inverseJoinColumns = @JoinColumn(name = "authorId"))
-    @JsonIgnoreProperties("movies")
-    public Set<Author> authors;
+    @JoinTable(name = "anime_author", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "authorid"))
+    @JsonIgnoreProperties("animes")
+    public Set<Autor> authors;
 
     @ManyToMany
-    @JoinTable(name = "movie_genre", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "genreid"))
-    @JsonIgnoreProperties("movies")
-    public Set<Genre> genres;
+    @JoinTable(name = "genre_anime", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "genreid"))
+    @JsonIgnoreProperties("animes")
+    public List<Genre> genres;
 
     @ManyToMany
-    @JoinTable(name = "fav", joinColumns = @JoinColumn(name = "animeId"), inverseJoinColumns = @JoinColumn(name = "userid"))
-    @JsonIgnoreProperties("movies")
+    @JoinTable(name = "fav", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "userid"))
+    @JsonIgnoreProperties("animes")
     public Set<User> favoritedby;
 }

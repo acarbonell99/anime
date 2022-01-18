@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FileRepository extends JpaRepository<File, UUID> {
-    @Query("select fileid from File")
-    List<String> getFileIds();
 
-    List<ProjectionAnime> findBy();
+    List<File> findBy();
 }

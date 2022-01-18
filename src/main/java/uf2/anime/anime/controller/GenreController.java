@@ -17,7 +17,7 @@ public class GenreController {
 
     @GetMapping("/")
     public ResponseEntity<?> findAllGenre(){
-        return ResponseEntity.ok().body(new ResponseList(genreRepository.findBy(ProjectionGenre.class)));
+        return ResponseEntity.ok().body(genreRepository.findBy(ProjectionGenre.class));
     }
 
     @GetMapping("/{id}")
