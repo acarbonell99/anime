@@ -8,4 +8,9 @@ public class ResponseList {
     public ResponseList(List<?> result) {
         this.result = result;
     }
+
+
+    public static ResponseList list(List<?> list) {
+        return new ResponseList(list);
+    }
 }

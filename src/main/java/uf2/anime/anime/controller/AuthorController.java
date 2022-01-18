@@ -2,28 +2,36 @@ package uf2.anime.anime.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uf2.anime.anime.domain.dto.ResponseList;
+import uf2.anime.anime.domain.model.Author;
 import uf2.anime.anime.domain.model.projection.ProjectionAuthor;
 import uf2.anime.anime.domain.model.projection.ProjectionAuthorMin;
 import uf2.anime.anime.repository.AuthorRepository;
 
 @RestController
-@RequestMapping("/anime")
+@RequestMapping("/author")
 public class AuthorController {
 
     @Autowired
-    private AuthorRepository autorRepository;
+    private AuthorRepository authorRepository;
 
     @GetMapping("/")
     public ResponseEntity<?> findAllAutors(){
-        return ResponseEntity.ok().body(new ResponseList(autorRepository.findBy(ProjectionAuthor.class)));
+        return ResponseEntity.ok().body(new ResponseList(authorRepository.findBy(ProjectionAuthor.class)));
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<?> findBy(){
-        return ResponseEntity.ok().body(new ResponseList(autorRepository.findBy(ProjectionAuthorMin.class)));
+        return ResponseEntity.ok().body(new ResponseList(authorRepository.findBy(ProjectionAuthorMin.class)));
+    }*/
+
+    /*@PostMapping("/")
+    public Author createAuthor(@RequestBody Author author){
+        return authorRepository.save(author);
+    }*/
+    @PostMapping("/")
+    public Author createAuthor(@RequestBody Author author){
+        return authorRepository.save(author);
     }
 }

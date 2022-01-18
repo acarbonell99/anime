@@ -1,6 +1,7 @@
 package uf2.anime.anime.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +16,10 @@ import java.util.UUID;
 @RequestMapping("/files")
 public class FileController {
 
-    private final FileRepository fileRepository;
-    FileController(FileRepository fileRepository){
-        this.fileRepository = fileRepository;
-    }
+    @Autowired
+    private FileRepository fileRepository;
 
-    @PostMapping
+    @PostMapping("/")
     public String upload(@RequestParam("file") MultipartFile uploadedFile) {
         try {
             File file = new File();
@@ -34,6 +33,10 @@ public class FileController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<?> devolverTodos(){
+        return ResponseEntity.ok().body(fileRepository.findBy());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable UUID id) {
