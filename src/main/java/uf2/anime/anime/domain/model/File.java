@@ -14,7 +14,7 @@ public class File {
 
     public String contenttype;
 
-    @Lob
+    /*@Lob
     @Type(type="org.hibernate.type.BinaryType")
-    public byte[] data;
+    public byte[] data;*/
 }

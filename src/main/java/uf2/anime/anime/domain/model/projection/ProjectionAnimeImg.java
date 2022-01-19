@@ -1,14 +1,12 @@
 package uf2.anime.anime.domain.model.projection;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Set;
 import java.util.UUID;
 
-public interface ProjectionAnimeWithAuthorYear {
+public interface ProjectionAnimeImg {
     UUID getAnimeid();
     String getName();
-    String getType();
-    int getYear();
     String getImageurl();
-
-    Set<ProjectionIdAuthor> getAuthors();
 }

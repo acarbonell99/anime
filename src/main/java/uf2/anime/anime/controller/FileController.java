@@ -6,7 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import uf2.anime.anime.domain.dto.ResponseList;
 import uf2.anime.anime.domain.model.File;
+import uf2.anime.anime.domain.model.projection.ProjectionAnime;
+import uf2.anime.anime.domain.model.projection.ProjectionFile;
 import uf2.anime.anime.repository.FileRepository;
 
 import java.util.List;
@@ -24,7 +27,7 @@ public class FileController {
         try {
             File file = new File();
             file.contenttype = uploadedFile.getContentType();
-            file.data = uploadedFile.getBytes();
+            //file.data = uploadedFile.getBytes();
 
             return fileRepository.save(file).fileid.toString();
         } catch (Exception e) {
@@ -33,12 +36,16 @@ public class FileController {
         }
     }
 
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<?> devolverTodos(){
         return ResponseEntity.ok().body(fileRepository.findBy());
+    }*/
+    @GetMapping("/")
+    public ResponseEntity<?> findAllFile(){
+        return ResponseEntity.ok().body(new ResponseList(fileRepository.findBy(ProjectionFile.class)));
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable UUID id) {
         File file = fileRepository.findById(id).orElse(null);
 
@@ -48,5 +55,5 @@ public class FileController {
                 .contentType(MediaType.valueOf(file.contenttype))
                 .contentLength(file.data.length)
                 .body(file.data);
-    }
+    }*/
 }

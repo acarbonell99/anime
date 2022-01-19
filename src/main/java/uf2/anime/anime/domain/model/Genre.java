@@ -18,5 +18,5 @@ public class Genre {
 
     @ManyToMany(mappedBy = "genres")
     @JsonIgnoreProperties("genres")
-    public List<Anime> animes;
+    public Set<Anime> animes;
 }

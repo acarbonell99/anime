@@ -24,15 +24,15 @@ public class Anime {
     @ManyToMany
     @JoinTable(name = "anime_author", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "authorid"))
     @JsonIgnoreProperties("animes")
-    public Set<Autor> authors;
+    public Set<Author> authors;
 
     @ManyToMany
-    @JoinTable(name = "genre_anime", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "genreid"))
+    @JoinTable(name = "anime_genre", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "genreid"))
     @JsonIgnoreProperties("animes")
-    public List<Genre> genres;
+    public Set<Genre> genres;
 
-    @ManyToMany
+    /*@ManyToMany
     @JoinTable(name = "fav", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "userid"))
     @JsonIgnoreProperties("animes")
-    public Set<User> favoritedby;
+    public Set<User> favoritedby;*/
 }
