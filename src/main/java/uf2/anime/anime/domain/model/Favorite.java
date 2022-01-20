@@ -10,5 +10,6 @@ import java.util.UUID;
 public class Favorite {
     @Id
     public UUID animeid;
+    @Id
     public UUID userid;
 }
