@@ -8,6 +8,8 @@ import uf2.anime.anime.domain.dto.Error;
 import uf2.anime.anime.domain.dto.ResponseList;
 import uf2.anime.anime.domain.model.Anime;
 import uf2.anime.anime.domain.model.projection.ProjectionAnime;
+import uf2.anime.anime.domain.model.projection.ProjectionAnimeImg;
+import uf2.anime.anime.domain.model.projection.ProjectionAnimeWithAuthor;
 import uf2.anime.anime.repository.AnimeRepository;
 
 import java.util.UUID;
@@ -30,11 +32,22 @@ public class AnimeController {
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat l'anime amb id= " + id));
         }
         animeRepository.save(anime);
-        return ResponseEntity.ok().body(anime);
+        return ResponseEntity.ok().body(new ResponseList(animeRepository.findByAnimeid(id,ProjectionAnimeImg.class)));
     }
 
     @PostMapping("/")
     public Anime createAnime(@RequestBody Anime anime){
         return animeRepository.save(anime);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delAnime(@PathVariable UUID id){
+        Anime anime = animeRepository.findById(id).orElse(null);
+        if(anime == null){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat l'anime amb id= " + id));
+        }
+        animeRepository.delete(anime);
+        return ResponseEntity.ok().build();
+    }
+
 }

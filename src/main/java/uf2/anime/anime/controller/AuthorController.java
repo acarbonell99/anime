@@ -37,21 +37,21 @@ public class AuthorController {
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat l'author amb id= " + id));
         }
         authorRepository.save(author);
-        return ResponseEntity.ok().body(author);
+        return ResponseEntity.ok().body(new ResponseList(authorRepository.findByAuthorid(id, ProjectionAuthor.class)));
     }
 
-
-    /*@GetMapping("/{id}")
-    public ResponseEntity<?> findBy(){
-        return ResponseEntity.ok().body(new ResponseList(authorRepository.findBy(ProjectionAuthorMin.class)));
-    }*/
-
-    /*@PostMapping("/")
-    public Author createAuthor(@RequestBody Author author){
-        return authorRepository.save(author);
-    }*/
     @PostMapping("/")
     public Author createAuthor(@RequestBody Author author){
         return authorRepository.save(author);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delAuthor(@PathVariable UUID id){
+        Author author = authorRepository.findById(id).orElse(null);
+        if(author == null){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat l'author amb id= " + id));
+        }
+        authorRepository.delete(author);
+        return ResponseEntity.ok().build();
     }
 }

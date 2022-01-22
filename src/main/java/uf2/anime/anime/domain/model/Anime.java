@@ -12,7 +12,6 @@ import java.util.UUID;
 public class Anime {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     public UUID animeid;
 
     public String name;
@@ -31,8 +30,8 @@ public class Anime {
     @JsonIgnoreProperties("animes")
     public Set<Genre> genres;
 
-    /*@ManyToMany
-    @JoinTable(name = "fav", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "userid"))
-    @JsonIgnoreProperties("animes")
-    public Set<User> favoritedby;*/
+    @ManyToMany
+    @JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "userid"))
+    //@JsonIgnoreProperties("animes")
+    public Set<User> favoritedby;
 }

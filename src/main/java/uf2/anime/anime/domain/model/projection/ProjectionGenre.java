@@ -15,6 +15,3 @@ public interface ProjectionGenre {
     @JsonIgnoreProperties("genres")
     Set<ProjectionAnimeWithAuthor> getAnimes();
 }
-
-
-// SELECT * genreid, label, imageurl from genre
