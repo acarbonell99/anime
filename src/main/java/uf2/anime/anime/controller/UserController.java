@@ -13,10 +13,7 @@ import uf2.anime.anime.domain.dto.ResponseList;
 import uf2.anime.anime.domain.dto.ResponseMessage;
 import uf2.anime.anime.domain.model.Favorite;
 import uf2.anime.anime.domain.model.User;
-import uf2.anime.anime.domain.model.projection.ProjectionAnimeFavorited;
-import uf2.anime.anime.domain.model.projection.ProjectionFavorite;
-import uf2.anime.anime.domain.model.projection.ProjectionUser;
-import uf2.anime.anime.domain.model.projection.ProjectionUserDetail;
+import uf2.anime.anime.domain.model.projection.*;
 import uf2.anime.anime.repository.AnimeRepository;
 import uf2.anime.anime.repository.FavoriteRepository;
 import uf2.anime.anime.repository.UserRepository;
@@ -94,10 +91,22 @@ public class UserController {
             User authenticatedUser = userRepository.findByUsername(authentication.getName());
 
             if (authenticatedUser != null) {
-                return ResponseEntity.ok().body(userRepository.findByUsername(authentication.getName(), ProjectionAnimeFavorited.class));
+                return ResponseEntity.ok().body(new ResponseList(userRepository.findByUsername(authentication.getName(), ProjectionAnimeFavorited.class)));
             }
         }
 
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No autorizado"));
+    }
+
+    @GetMapping("/follow")
+    public ResponseEntity<?> getFollow(Authentication authentication){
+        if (authentication != null) {
+            User authenticatedUser = userRepository.findByUsername(authentication.getName());
+
+            if (authenticatedUser != null){
+                return ResponseEntity.ok().body(new ResponseList(userRepository.findByUsername(authentication.getName(), ProjectionUserFollowUser.class)));
+            }
+        }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No autorizado"));
     }
 

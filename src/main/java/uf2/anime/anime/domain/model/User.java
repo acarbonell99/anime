@@ -21,4 +21,8 @@ public class User {
     @ManyToMany(mappedBy = "favoritedby")
     //@JsonIgnoreProperties("favoritedby")
     public Set<Anime> favorites;
+
+    @ManyToMany
+    @JoinTable(name = "following", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "useridfollowed"))
+    public Set<User> follow;
 }

@@ -39,6 +39,11 @@ CREATE TABLE favorite (
     userid uuid REFERENCES usser(userid) ON DELETE CASCADE,
     PRIMARY KEY (animeid, userid));
 
+CREATE TABLE following (
+    userid uuid REFERENCES usser(userid) ON DELETE CASCADE,
+    useridfollowed uuid REFERENCES usser(userid) ON DELETE CASCADE,
+    PRIMARY KEY (userid, useridfollowed));
+
 CREATE TABLE file (
     fileid UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     contenttype TEXT,
