@@ -25,4 +25,20 @@ public class User {
     @ManyToMany
     @JoinTable(name = "following", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "useridfollowed"))
     public Set<User> follow;
+
+    /*@ManyToMany
+    @JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "groupid"), inverseJoinColumns = @JoinColumn(name = "userid"))
+    public Set<Grup> grup;*/
+    @ManyToMany(mappedBy = "users")
+    @JsonIgnoreProperties("users")
+    public Set<Grup> grups;
+
+    /*@ManyToMany
+    @JoinTable(name = "user_grup", joinColumns = @JoinColumn(name = "grupid"), inverseJoinColumns = @JoinColumn(name = "userid"))
+    @JsonIgnoreProperties("users2")
+    public Set<Grup> grups2;
+
+     */
+
+
 }

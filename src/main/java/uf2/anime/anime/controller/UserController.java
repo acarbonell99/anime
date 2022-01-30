@@ -7,15 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import uf2.anime.anime.domain.dto.RequestFavorite;
-import uf2.anime.anime.domain.dto.RequestUserRegister;
-import uf2.anime.anime.domain.dto.ResponseList;
-import uf2.anime.anime.domain.dto.ResponseMessage;
+import uf2.anime.anime.domain.dto.*;
 import uf2.anime.anime.domain.model.Favorite;
 import uf2.anime.anime.domain.model.User;
+import uf2.anime.anime.domain.model.UserFollowUser;
 import uf2.anime.anime.domain.model.projection.*;
 import uf2.anime.anime.repository.AnimeRepository;
 import uf2.anime.anime.repository.FavoriteRepository;
+import uf2.anime.anime.repository.FollowRepository;
 import uf2.anime.anime.repository.UserRepository;
 
 import java.util.UUID;
@@ -27,7 +26,7 @@ public class UserController {
     @Autowired private UserRepository userRepository;
     @Autowired private BCryptPasswordEncoder passwordEncoder;
     @Autowired private FavoriteRepository favoriteRepository;
-
+    @Autowired private FollowRepository followRepository;
 
     @GetMapping("/")
     public ResponseEntity<?> getAll(){
@@ -40,24 +39,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RequestUserRegister userRegisterRequest) {
-
+    public ResponseEntity<?> register(@RequestBody RequestUserRegister userRegisterRequest) {
         if (userRepository.findByUsername(userRegisterRequest.username) == null) {
             User user = new User();
             user.username = userRegisterRequest.username;
             user.password = passwordEncoder.encode(userRegisterRequest.password);
             user.enabled = true;
             userRepository.save(user);
-            return "OK";   // TODO
+            return ResponseEntity.ok().body(ResponseMessage.message("Usuari registrat correctament"));
         }
-        return "ERROR";    // TODO
+        return ResponseEntity.ok().body(ResponseMessage.message("Error en la creació d'usuari"));
     }
 
     @DeleteMapping("/favorites")
     public ResponseEntity<?> delFavorite(@RequestBody RequestFavorite requestFavorite, Authentication authentication) {
         if (authentication != null) {
             User authenticatedUser = userRepository.findByUsername(authentication.getName());
-
             if (authenticatedUser != null) {
                 Favorite favorite = new Favorite();
                 favorite.animeid = requestFavorite.animeid;
@@ -66,14 +63,13 @@ public class UserController {
                 return ResponseEntity.ok().build();
             }
         }
-
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No autorizado"));
     }
+
     @PostMapping("/favorites")
     public ResponseEntity<?> addFavorite(@RequestBody RequestFavorite requestFavorite, Authentication authentication) {
         if (authentication != null) {
             User authenticatedUser = userRepository.findByUsername(authentication.getName());
-
             if (authenticatedUser != null) {
                 Favorite favorite = new Favorite();
                 favorite.animeid = requestFavorite.animeid;
@@ -82,27 +78,39 @@ public class UserController {
                 return ResponseEntity.ok().build();
             }
         }
-
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No estas autorizado"));
     }
+
     @GetMapping("/favorites")
     public ResponseEntity<?> getFavorites(Authentication authentication) {
         if (authentication != null) {
             User authenticatedUser = userRepository.findByUsername(authentication.getName());
-
             if (authenticatedUser != null) {
                 return ResponseEntity.ok().body(new ResponseList(userRepository.findByUsername(authentication.getName(), ProjectionAnimeFavorited.class)));
             }
         }
-
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No autorizado"));
+    }
+
+    @PostMapping("/follow")
+    public ResponseEntity<?> addFollow(@RequestBody RequestFollow requestFollow, Authentication authentication) {
+        if (authentication != null) {
+            User authenticatedUser = userRepository.findByUsername(authentication.getName());
+            if (authenticatedUser != null) {
+                UserFollowUser userFollowUser = new UserFollowUser();
+                userFollowUser.userid = authenticatedUser.userid;
+                userFollowUser.useridfollowed = requestFollow.useridfollowed;
+                followRepository.save(userFollowUser);
+                return ResponseEntity.ok().build();
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No estas autorizado"));
     }
 
     @GetMapping("/follow")
     public ResponseEntity<?> getFollow(Authentication authentication){
         if (authentication != null) {
             User authenticatedUser = userRepository.findByUsername(authentication.getName());
-
             if (authenticatedUser != null){
                 return ResponseEntity.ok().body(new ResponseList(userRepository.findByUsername(authentication.getName(), ProjectionUserFollowUser.class)));
             }
@@ -110,4 +118,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No autorizado"));
     }
 
+    @GetMapping("/grup")
+    public ResponseEntity<?> getUserGrup(Authentication authentication){
+        if (authentication != null) {
+            User authenticatedUser = userRepository.findByUsername(authentication.getName());
+            if (authenticatedUser != null){
+                return ResponseEntity.ok().body(new ResponseList(userRepository.findByUsername(authentication.getName(), ProjectionGrupUser.class)));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseMessage.message("No autorizado"));
+    }
 }

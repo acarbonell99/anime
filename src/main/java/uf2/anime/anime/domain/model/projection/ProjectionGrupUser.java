@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Set;
 import java.util.UUID;
 
-public interface ProjectionUserDetail {
+public interface ProjectionGrupUser {
     UUID getUserid();
     String getUsername();
-}
 
+    @JsonIgnoreProperties("users")
+    Set<ProjectionGrup> getGrups();
+}

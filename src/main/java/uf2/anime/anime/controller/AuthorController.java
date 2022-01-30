@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import uf2.anime.anime.domain.dto.Error;
 import uf2.anime.anime.domain.dto.ResponseList;
+import uf2.anime.anime.domain.dto.ResponseMessage;
 import uf2.anime.anime.domain.model.Anime;
 import uf2.anime.anime.domain.model.Author;
 import uf2.anime.anime.domain.model.projection.ProjectionAuthor;
@@ -21,10 +22,6 @@ public class AuthorController {
     @Autowired
     private AuthorRepository authorRepository;
 
-    /*@GetMapping("/")
-    public ResponseEntity<?> findAllAutors(){
-        return ResponseEntity.ok().body(new ResponseList(authorRepository.findBy(ProjectionAuthor.class)));
-    }*/
     @GetMapping("/")
     public ResponseEntity<?> findAllAuthor(Authentication authentication) {
         return ResponseEntity.ok().body(new ResponseList(authorRepository.findBy(ProjectionAuthor.class)));
@@ -52,6 +49,6 @@ public class AuthorController {
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat l'author amb id= " + id));
         }
         authorRepository.delete(author);
-        return ResponseEntity.ok().build();
+        return  ResponseEntity.ok().body(ResponseMessage.message("Author amb id: " + id + " s'ha elimminat"));
     }
 }

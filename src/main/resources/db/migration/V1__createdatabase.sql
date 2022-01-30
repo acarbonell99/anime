@@ -1,11 +1,11 @@
-
 CREATE TABLE IF NOT EXISTS anime (
 	animeid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
 	name text,
 	description text,
 	type text,
 	year integer,
-	imageurl text);
+	imageurl text
+	);
 
 CREATE TABLE  author (
     authorid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -49,4 +49,22 @@ CREATE TABLE file (
     contenttype TEXT,
     data bytea);
 
+CREATE TABLE grup(
+    grupid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+    grupname text NOT NULL);
 
+CREATE TABLE user_grup(
+    grupid uuid REFERENCES grup(grupid) ON DELETE CASCADE,
+    userid uuid REFERENCES usser(userid) ON DELETE CASCADE,
+    PRIMARY KEY (grupid, userid));
+
+
+CREATE TABLE image_group(
+    imgid uuid PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
+    imgtext text);
+
+CREATE TABLE image_anime(
+    animeid uuid REFERENCES anime(animeid) ON DELETE CASCADE,
+    imgid uuid REFERENCES image_group(imgid) ON DELETE CASCADE,
+    PRIMARY KEY (animeid,imgid)
+);

@@ -3,6 +3,7 @@ package uf2.anime.anime.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -34,4 +35,13 @@ public class Anime {
     @JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "userid"))
     //@JsonIgnoreProperties("animes")
     public Set<User> favoritedby;
+
+    @ManyToMany
+    @JoinTable(name = "image_anime", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "imgid"))
+    //@JsonIgnoreProperties("animes")
+    public Set<Images> images;
+
+
 }
+
+

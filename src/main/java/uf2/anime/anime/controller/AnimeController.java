@@ -1,17 +1,20 @@
 package uf2.anime.anime.controller;
 
+import com.sipios.springsearch.anotation.SearchSpec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uf2.anime.anime.domain.dto.Error;
 import uf2.anime.anime.domain.dto.ResponseList;
+import uf2.anime.anime.domain.dto.ResponseMessage;
 import uf2.anime.anime.domain.model.Anime;
 import uf2.anime.anime.domain.model.projection.ProjectionAnime;
 import uf2.anime.anime.domain.model.projection.ProjectionAnimeImg;
-import uf2.anime.anime.domain.model.projection.ProjectionAnimeWithAuthor;
 import uf2.anime.anime.repository.AnimeRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,6 +23,7 @@ public class AnimeController {
 
     @Autowired
     private AnimeRepository animeRepository;
+    private AnimeRepository animeRepository2;
 
     @GetMapping("/")
     public ResponseEntity<?> findAllAnimes(){
@@ -29,7 +33,7 @@ public class AnimeController {
     public ResponseEntity<?> findBy(@PathVariable UUID id){
         Anime anime = animeRepository.findById(id).orElse(null);
         if(anime == null){
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat l'anime amb id= " + id));
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("No s'ha trobat l'anime amb id= " + id));
         }
         animeRepository.save(anime);
         return ResponseEntity.ok().body(new ResponseList(animeRepository.findByAnimeid(id,ProjectionAnimeImg.class)));
@@ -47,7 +51,11 @@ public class AnimeController {
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat l'anime amb id= " + id));
         }
         animeRepository.delete(anime);
-        return ResponseEntity.ok().build();
+        return  ResponseEntity.ok().body(ResponseMessage.message("Anime amb id: " + id + " s'ha elimminat"));
     }
 
+    //@GetMapping("/search")
+    //public  ResponseEntity<List<Anime>> searchAnime(@SearchSpec Specification<Anime> specs){
+    //    return new ResponseEntity<>(animeRepository.findAll(Specification.where(specs)), HttpStatus.OK);
+    //}
 }

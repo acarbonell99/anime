@@ -42,15 +42,43 @@ INSERT INTO anime_genre values
 
 
 INSERT INTO favorite values
-((SELECT animeid FROM anime WHERE name = 'One Piece'), (SELECT userid FROM usser WHERE username= 'user01')),
-((SELECT animeid FROM anime WHERE name = 'Shingeki no Kyojin'), (SELECT userid FROM usser WHERE username= 'user01')),
-((SELECT animeid FROM anime WHERE name = 'Shingeki no Kyojin'), (SELECT userid FROM usser WHERE username= 'user02')),
-((SELECT animeid FROM anime WHERE name = 'Tengen Toppa Gurren Lagann'), (SELECT userid FROM usser WHERE username= 'user04'));
+    ((SELECT animeid FROM anime WHERE name = 'One Piece'), (SELECT userid FROM usser WHERE username= 'user01')),
+    ((SELECT animeid FROM anime WHERE name = 'Shingeki no Kyojin'), (SELECT userid FROM usser WHERE username= 'user01')),
+    ((SELECT animeid FROM anime WHERE name = 'Shingeki no Kyojin'), (SELECT userid FROM usser WHERE username= 'user02')),
+    ((SELECT animeid FROM anime WHERE name = 'Tengen Toppa Gurren Lagann'), (SELECT userid FROM usser WHERE username= 'user04'));
 
 INSERT INTO following values
-((SELECT userid FROM usser WHERE username= 'user01'), (SELECT userid FROM usser WHERE username= 'user02')),
-((SELECT userid FROM usser WHERE username= 'user01'), (SELECT userid FROM usser WHERE username= 'user03')),
-((SELECT userid FROM usser WHERE username= 'user02'), (SELECT userid FROM usser WHERE username= 'user04'));
+    ((SELECT userid FROM usser WHERE username= 'user01'), (SELECT userid FROM usser WHERE username= 'user02')),
+    ((SELECT userid FROM usser WHERE username= 'user01'), (SELECT userid FROM usser WHERE username= 'user03')),
+    ((SELECT userid FROM usser WHERE username= 'user02'), (SELECT userid FROM usser WHERE username= 'user04'));
 
+INSERT INTO grup(grupname) values
+    ('grup1'),
+    ('grup2'),
+    ('grup3');
 
+INSERT INTO user_grup values
+    ((SELECT grupid FROM grup WHERE grupname= 'grup1'), (SELECT userid FROM usser WHERE username= 'user01')),
+    ((SELECT grupid FROM grup WHERE grupname= 'grup1'), (SELECT userid FROM usser WHERE username= 'user02')),
+    ((SELECT grupid FROM grup WHERE grupname= 'grup2'), (SELECT userid FROM usser WHERE username= 'user03')),
+    ((SELECT grupid FROM grup WHERE grupname= 'grup2'), (SELECT userid FROM usser WHERE username= 'user04')),
+    ((SELECT grupid FROM grup WHERE grupname= 'grup3'), (SELECT userid FROM usser WHERE username= 'user04')),
+    ((SELECT grupid FROM grup WHERE grupname= 'grup3'), (SELECT userid FROM usser WHERE username= 'user01'));
+
+INSERT INTO image_group (imgtext) VALUES
+( 'imageOne2.png' ),
+( 'imageOne3.png' ),
+( 'imageOne4.png' ),
+( 'imageShingeki1.png' ),
+( 'imageShingeki2.png' ),
+( 'imageDragon1.png' ),
+( 'imageDragon2.png' ),
+( 'imageDragon3.png' );
+
+INSERT INTO image_anime values
+    ((SELECT animeid FROM anime WHERE name = 'One Piece'), (SELECT imgid FROM image_group WHERE imgtext = 'imageOne2.png')),
+    ((SELECT animeid FROM anime WHERE name = 'One Piece'), (SELECT imgid FROM image_group WHERE imgtext = 'imageOne3.png')),
+    ((SELECT animeid FROM anime WHERE name = 'One Piece'), (SELECT imgid FROM image_group WHERE imgtext = 'imageOne4.png')),
+    ((SELECT animeid FROM anime WHERE name = 'Shingeki no Kyojin'), (SELECT imgid FROM image_group WHERE imgtext = 'imageShingeki1.png')),
+    ((SELECT animeid FROM anime WHERE name = 'Shingeki no Kyojin'), (SELECT imgid FROM image_group WHERE imgtext = 'imageShingeki2.png'));
 

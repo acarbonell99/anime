@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core:8.4.1'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.3'
+	implementation 'com.sipios:spring-search:0.2.0'
 
 }
 

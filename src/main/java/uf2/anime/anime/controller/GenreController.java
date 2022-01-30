@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uf2.anime.anime.domain.dto.Error;
 import uf2.anime.anime.domain.dto.ResponseList;
+import uf2.anime.anime.domain.dto.ResponseMessage;
 import uf2.anime.anime.domain.model.Anime;
 import uf2.anime.anime.domain.model.Author;
 import uf2.anime.anime.domain.model.Genre;
@@ -46,6 +47,6 @@ public class GenreController {
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Error.message("Nos'ha trobat el genre amb id= " + id));
         }
         genreRepository.delete(genre);
-        return ResponseEntity.ok().build();
+        return  ResponseEntity.ok().body(ResponseMessage.message("Genre amb id: " + id + " s'ha elimminat"));
     }
 }
