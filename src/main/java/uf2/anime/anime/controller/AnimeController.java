@@ -23,7 +23,6 @@ public class AnimeController {
 
     @Autowired
     private AnimeRepository animeRepository;
-    private AnimeRepository animeRepository2;
 
     @GetMapping("/")
     public ResponseEntity<?> findAllAnimes(){
@@ -54,8 +53,4 @@ public class AnimeController {
         return  ResponseEntity.ok().body(ResponseMessage.message("Anime amb id: " + id + " s'ha elimminat"));
     }
 
-    //@GetMapping("/search")
-    //public  ResponseEntity<List<Anime>> searchAnime(@SearchSpec Specification<Anime> specs){
-    //    return new ResponseEntity<>(animeRepository.findAll(Specification.where(specs)), HttpStatus.OK);
-    //}
 }
