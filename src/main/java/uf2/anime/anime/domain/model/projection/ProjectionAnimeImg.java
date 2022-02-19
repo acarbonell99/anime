@@ -9,6 +9,10 @@ public interface ProjectionAnimeImg {
     UUID getAnimeid();
     String getName();
     String getImageurl();
+    String getDescription();
+    String getType();
+    int getYear();
+
 
     Set<ProjectionImages> getImages();
 }

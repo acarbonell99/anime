@@ -19,4 +19,7 @@ public interface ProjectionAnime {
 
     @JsonIgnoreProperties("animes")
     Set<ProjectionGenre> getGenres();
+
+    @JsonIgnoreProperties("animes")
+    Set<ProjectionUser> getFavoritedby();
 }
