@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS anime (
 	description text,
 	type text,
 	year integer,
-	imageurl text
+	imageurl text,
+	video text
 	);
 
 CREATE TABLE  author (
@@ -31,6 +32,8 @@ CREATE TABLE usser (
   userid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   username varchar(24) NOT NULL UNIQUE,
   password varchar(255) NOT NULL,
+  email varchar,
+  phone integer,
   role varchar(10),
   enabled boolean DEFAULT true);
 
@@ -68,3 +71,12 @@ CREATE TABLE image_anime(
     imgid uuid REFERENCES image_group(imgid) ON DELETE CASCADE,
     PRIMARY KEY (animeid,imgid)
 );
+
+
+
+--CREATE TABLE anime_video(
+--    animeid uuid REFERENCES anime(animeid) ON DELETE CASCADE,
+--    videoid uuid NOT NULL DEFAULT gen_random_uuid(),
+--    episode integer,
+--    url text,
+--    PRIMARY KEY (animeid,videoid));

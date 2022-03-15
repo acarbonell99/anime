@@ -13,6 +13,7 @@ public interface ProjectionAnime {
     String getType();
     int getYear();
     String getImageurl();
+    String getVideo();
 
     @JsonIgnoreProperties("animes")
     Set<ProjectionAuthor> getAuthors();
@@ -22,4 +23,5 @@ public interface ProjectionAnime {
 
     @JsonIgnoreProperties("animes")
     Set<ProjectionUser> getFavoritedby();
+
 }

@@ -38,15 +38,16 @@ public class UserController {
         return ResponseEntity.ok().body(ResponseList.list(userRepository.findByUserid(id, ProjectionUserDetail.class)));
     }
 
-    @PostMapping("/register")
+    @PostMapping(path= "/register")
     public ResponseEntity<?> register(@RequestBody RequestUserRegister userRegisterRequest) {
         if (userRepository.findByUsername(userRegisterRequest.username) == null) {
             User user = new User();
             user.username = userRegisterRequest.username;
             user.password = passwordEncoder.encode(userRegisterRequest.password);
+
             user.enabled = true;
-            userRepository.save(user);
-            return ResponseEntity.ok().body(ResponseMessage.message("Usuari registrat correctament"));
+            //return ResponseEntity.ok().body(ResponseMessage.message("Usuari registrat correctament"));
+            return ResponseEntity.ok().body(userRepository.save(user).userid.toString());
         }
         return ResponseEntity.ok().body(ResponseMessage.message("Error en la creació d'usuari"));
     }

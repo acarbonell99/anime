@@ -9,6 +9,7 @@ public interface ProjectionAnimeImg {
     UUID getAnimeid();
     String getName();
     String getImageurl();
+    String getVideo();
     String getDescription();
     String getType();
     int getYear();

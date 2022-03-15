@@ -8,5 +8,7 @@ import java.util.UUID;
 public interface ProjectionUserDetail {
     UUID getUserid();
     String getUsername();
+    String getEmail();
+    int getPhone();
 }
 

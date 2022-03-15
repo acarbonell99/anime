@@ -20,6 +20,8 @@ public class Anime {
     public String type;
     public int year;
     public String imageurl;
+    public String video;
+
 
     @ManyToMany
     @JoinTable(name = "anime_author", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "authorid"))
@@ -40,6 +42,7 @@ public class Anime {
     @JoinTable(name = "image_anime", joinColumns = @JoinColumn(name = "animeid"), inverseJoinColumns = @JoinColumn(name = "imgid"))
     //@JsonIgnoreProperties("animes")
     public Set<Images> images;
+
 
 
 }
